@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>乱数生成器</title>
+        <meta name="description" content="乱数を表示します。">
+        <meta name="viewport" content="width=640, initial-scale=1, shrink-to-fit=no">
+        <link rel="manifest" href="./manifest.json">
+        <link rel="apple-touch-icon" href="./icon.png">
+        <script>
+function make_random_number(){
+    let from = parseInt(document.getElementById("range_from").value);
+    let to   = parseInt(document.getElementById("range_to").value);
+    let random_number = parseInt(Math.random() * (to - from + 1)) + from;
+    document.getElementById("random_number").innerText = random_number.toString();
+}
+        </script>
+        <style type="text/css">
+p#random_number {
+    font-size: 480px;
+    font-weight: bold;
+    font-family: "Hiragino Kaku Gothic ProN","メイリオ", Arial, sans-serif;
+    color: #ff0000;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+form {
+    text-align: center;
+    font-size: 5em;
+}
+form p{
+    margin: 0;
+    padding: 0;
+}
+form input {
+    font-size: 1em;
+}
+form #make {
+    width: 100%;
+}
+form .range {
+    width: 40%;
+    text-align: center;
+}
+        </style>
+    </head>
+    <body>
+        <p id="random_number">?</p>
+        <form id="form">
+            <p><input type="button" value="生成" id="make" onclick="make_random_number();"></p>
+            <p><input type="number" value="1" class="range" id="range_from">～<input type="number" value="40" class="range" id="range_to"></p>
+        </form>
+    </body>
+</html>
+
