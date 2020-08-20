@@ -1,22 +1,39 @@
 <!doctype html>
 <html lang="ja">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8" />
         <title>乱数生成器</title>
-        <meta name="description" content="乱数を表示します。">
-        <meta name="viewport" content="width=640, initial-scale=1, shrink-to-fit=no">
-        <link rel="manifest" href="./manifest.json">
-        <link rel="apple-touch-icon" href="./icon.png">
+        <meta name="description" content="乱数を表示します。" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="manifest" href="./manifest.json" />
+        <link rel="apple-touch-icon" href="./icon-512x512.png" />
         <script>
-function make_random_number(){
+// Service Worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js').then(function() { console.log('Service Worker Registered'); });
+}
+
+function make_random_number() {
     let from = parseInt(document.getElementById("range_from").value);
     let to   = parseInt(document.getElementById("range_to").value);
     let random_number = parseInt(Math.random() * (to - from + 1)) + from;
     document.getElementById("random_number").innerText = random_number.toString();
+    document.cookie = "fromto=f" + from.toString() + "t" + to.toString() + ";max-age=31536000;secure";
 }
+
+window.onload = function() {
+    let match = document.cookie.match(/fromto=f(\d+)t(\d+)/);
+    if (match) {
+        document.getElementById("range_from").value = match[1];
+        document.getElementById("range_to"  ).value = match[2];
+    }
+}
+
         </script>
         <style type="text/css">
+
 p#random_number {
+    width: 700px;
     font-size: 480px;
     font-weight: bold;
     font-family: "Hiragino Kaku Gothic ProN","メイリオ", Arial, sans-serif;
@@ -25,31 +42,118 @@ p#random_number {
     margin: 0;
     padding: 0;
 }
+
 form {
     text-align: center;
-    font-size: 5em;
+    margin: 0;
+    padding: 0;
+    font-size: 4em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
+
 form p{
     margin: 0;
     padding: 0;
 }
-form input {
+
+form input,
+form button {
     font-size: 1em;
 }
-form #make {
-    width: 100%;
+
+#make {
+    width: 90%;
 }
-form .range {
-    width: 40%;
+
+#range_from,
+#range_to {
+    width: 200px;
     text-align: center;
 }
+
+@media (min-width: 1000px){
+    form {
+        width: 200px;
+        height: 100%;
+        right: 0;
+    }
+    form #make {
+        width: 200px;
+        height: 320px;
+    }
+    p.range {
+        position: fixed;
+        bottom: 0;
+    }
+}
+
         </style>
     </head>
     <body>
         <p id="random_number">?</p>
         <form id="form">
-            <p><input type="button" value="生成" id="make" onclick="make_random_number();"></p>
-            <p><input type="number" value="1" class="range" id="range_from">～<input type="number" value="40" class="range" id="range_to"></p>
+            <p class="make">
+                <button type="button" id="make" onclick="make_random_number();">生成</button>
+            </p>
+            <p class="range">
+                <input type="text" list="range" value="1" id="range_from">
+                ～
+                <input type="text" list="range" value="40" id="range_to">
+                <datalist id="range">
+                    <option value="1" />
+                    <option value="2" />
+                    <option value="3" />
+                    <option value="4" />
+                    <option value="5" />
+                    <option value="6" />
+                    <option value="7" />
+                    <option value="8" />
+                    <option value="9" />
+                    <option value="10" />
+                    <option value="11" />
+                    <option value="12" />
+                    <option value="13" />
+                    <option value="14" />
+                    <option value="15" />
+                    <option value="16" />
+                    <option value="17" />
+                    <option value="18" />
+                    <option value="19" />
+                    <option value="20" />
+                    <option value="21" />
+                    <option value="22" />
+                    <option value="23" />
+                    <option value="24" />
+                    <option value="25" />
+                    <option value="26" />
+                    <option value="27" />
+                    <option value="28" />
+                    <option value="29" />
+                    <option value="30" />
+                    <option value="31" />
+                    <option value="32" />
+                    <option value="33" />
+                    <option value="34" />
+                    <option value="35" />
+                    <option value="36" />
+                    <option value="37" />
+                    <option value="38" />
+                    <option value="39" />
+                    <option value="40" />
+                    <option value="41" />
+                    <option value="42" />
+                    <option value="43" />
+                    <option value="44" />
+                    <option value="45" />
+                    <option value="46" />
+                    <option value="47" />
+                    <option value="48" />
+                    <option value="49" />
+                    <option value="50" />
+                </datalist>
+            </p>
         </form>
     </body>
 </html>

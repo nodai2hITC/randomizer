@@ -1,6 +1,6 @@
 {
-  "name": "Randomizer",
-  "short_name": "Randomizer",
+  "name": "乱数生成器",
+  "short_name": "乱数生成器",
   "theme_color": "#ff0000",
   "background_color": "#ffffff",
   "display": "standalone",
